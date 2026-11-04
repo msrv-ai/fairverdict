@@ -34,7 +34,7 @@ You choose the report:
 
 Both start with a short note naming the AI model that produced the analysis with FairVerdict and explaining why the result can be trusted, followed by the title "FairVerdict: <your question>". Both end with a line reserved for the proof link: the public link to the chat that produced the report, which you create with Share → Anyone with the link.
 
-Every report also comes as a Markdown file, such as `fairverdict-desktop-mcp-gateways-2026-11-04.md`, ready to publish: on claude.ai it appears as a download, and in Claude Code it is saved in the current folder.
+Every report also comes as a fully formatted Markdown file, written before the chat reply, such as `fairverdict-desktop-mcp-gateways-2026-11-04.md`, ready to publish: on claude.ai it appears as a download, and in Claude Code it is saved in the current folder.
 
 ## Speed
 
