@@ -1,0 +1,34 @@
+{
+  "name": "fairverdict",
+  "version": "1.1.4",
+  "description": "Evidence-based comparisons with weighted scores, fact checks and robustness checks. Delivers a formatted Markdown report and a concise chat summary.",
+  "author": {
+    "name": "msrv-ai",
+    "url": "https://github.com/msrv-ai"
+  },
+  "homepage": "https://github.com/msrv-ai/fairverdict",
+  "repository": "https://github.com/msrv-ai/fairverdict",
+  "license": "MIT",
+  "keywords": [
+    "decision-making",
+    "comparison",
+    "evaluation",
+    "ranking",
+    "scoring",
+    "unbiased",
+    "judge"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "FairVerdict",
+    "shortDescription": "Evidence-based verdicts",
+    "longDescription": "Compare tools, technologies, products and approaches on criteria fixed before research. Get a scored verdict, its trade-offs and robustness checks in a Markdown file, with a brief summary in chat.",
+    "developerName": "msrv-ai",
+    "category": "Productivity",
+    "capabilities": [],
+    "websiteURL": "https://github.com/msrv-ai/fairverdict",
+    "defaultPrompt": "Compare PostgreSQL, MySQL and MongoDB for a SaaS backend with heavy reporting. Give me a short Markdown report and a brief summary in chat.",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/icon.png"
+  }
+}
