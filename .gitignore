@@ -12,3 +12,6 @@ __MACOSX/
 # Python
 __pycache__/
 *.pyc
+
+# Generated plugin archives
+dist/
