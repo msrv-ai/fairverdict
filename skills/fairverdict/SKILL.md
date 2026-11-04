@@ -25,7 +25,7 @@ Two things come from the user, not from you: which candidates to judge and which
 A verdict should arrive in minutes: aim for about 5 for a short report and about 15 for a full one. Two habits do most of the work:
 
 - **Work in parallel.** Send each round of searches for all candidates in one turn, and launch all fact-check verifiers at once.
-- **Stay lean.** Keep to the research budget in step 4, keep working notes brief and in your own reasoning, and write no notes files. The only file you write is `scores.json` for the bundled scoring script, which you run as it is and never retype.
+- **Stay lean.** Keep to the research budget in step 4, keep working notes brief and in your own reasoning, and write no notes files. The only files you write are `scores.json` for the bundled scoring script, which you run as it is and never retype, and the finished report as a Markdown file (step 9).
 
 ## Workflow
 
@@ -200,32 +200,36 @@ If the audit changes a score or a confidence, rerun the script and mention the c
 
 Write the report the user chose, in the user's language. Both kinds share their first and last lines:
 
-- **First line, always:** the attribution sentence, translated into the user's language with the link kept. Use your own model name as precisely as you know it, such as "Claude Opus 5.5"; if you don't know the exact version, write "Claude".
+- **First line, always:** the attribution note, translated into the user's language with the link kept. Leave out any claim in it that didn't hold for this run, such as the source check when there was no web access. Use your own model name as precisely as you know it, such as "Claude Opus 5.5"; if you don't know the exact version, write "Claude".
 - **Last line, always:** the proof line in square brackets, as a placeholder for the user to fill: `[Proof: <share link to this chat>]`, with the placeholder text in the user's language. Only the user can publish the chat, so never insert a link yourself — not this chat's private URL, and not a guessed one. Right after the report, add one line telling the user to share this chat with "Anyone with the link" (Share → Anyone with the link), copy that link and paste it in place of the placeholder.
 
-**Short report** — a Reddit-style post that fits on one screen, about 40 lines for five candidates:
+**Markdown file, always.** Besides showing the report in the chat, save the same text as `fairverdict-<topic>-<YYYY-MM-DD>.md`, with the topic as a few lowercase English words joined by hyphens (e.g. `fairverdict-desktop-mcp-gateways-2026-11-04.md`), and give the file to the user the way your environment shares files: on claude.ai, in the outputs folder; in Claude Code, in the current working directory. Without file tools, say in one line that the file was skipped.
+
+**Short report** — a Reddit-style post that fits on one screen, about 35 lines for five candidates, with no tables (the leaderboard and the score matrix are for the full report):
 
 ```markdown
-_This analysis was produced by <model name> with [FairVerdict](https://github.com/msrv-ai/fairverdict) — an objective AI analysis of the question, without human intervention._
+_This analysis was produced by <model name> with [FairVerdict](https://github.com/msrv-ai/fairverdict) — an objective AI analysis of the question, without human intervention. Unlike a typical review or "top 10" list, the result doesn't depend on who wrote it, who paid for it or which option is the most hyped: the criteria and their weights are fixed before any scoring, every candidate gets the same research, the facts behind the scores are checked against primary sources, and the winner is stress-tested under different priorities. The proof link at the end opens the full chat, so anyone can check every step._
 
-# ⚖️ <question>
+# FairVerdict: <question>
 **Winner: <name> — <score>/100** · <Clear | With caveats> · as of <date>
 <when too close to call, this line instead: **Too close to call: <A> <score> vs <B> <score>** · as of <date>>
+
 <one line: how "best" was interpreted and the key assumption; conflict-of-interest note if any>
 
-| # | Candidate | Score /100 | In one line |
-<🥇🥈🥉 for the top three; ⛔ rows for disqualified candidates, with the reason>
-
-Scores by criterion (0–10, * = low confidence):
-<the script's score matrix>
-
 **🥇 <name> — <score>**
-✅ <strength, with its evidence in a few words> · ✅ <strength>
-❌ <weakness, with its evidence in a few words> · ❌ <weakness>
-<the same three lines for every candidate, in rank order; at most two of each>
+✅ <strength, with its evidence in a few words>
+✅ <strength>
+❌ <weakness, with its evidence in a few words>
+❌ <weakness>
+
+<the same block for every other candidate, in rank order (🥈, 🥉, then the rank number), with a blank line between candidates; at most two of each, one per line>
+
+<if any candidate was disqualified: ⛔ <name> — <reason>, one line each>
 
 **Why <winner> wins:** <the top 2–3 gap drivers, with evidence> <when too close to call: what decides between <A> and <B>>
+
 **What would change it:** if <priority> matters most, <other candidate> wins
+
 **How it was judged:** candidates <named by the user | picked by <signals>; not included: <name — reason>>; rubric fixed before scoring; <N> facts checked by independent verifiers (<n> confirmed, <n> corrected); <winner> wins <N>% of simulations
 
 **Sources:** [title](url) · [title](url) · <the 5–8 that the scores rest on most>
@@ -236,9 +240,9 @@ Scores by criterion (0–10, * = low confidence):
 **Full report** — a complete article: thorough, readable as a standalone piece, never padded.
 
 ```markdown
-_This analysis was produced by <model name> with [FairVerdict](https://github.com/msrv-ai/fairverdict) — an objective AI analysis of the question, without human intervention._
+_This analysis was produced by <model name> with [FairVerdict](https://github.com/msrv-ai/fairverdict) — an objective AI analysis of the question, without human intervention. Unlike a typical review or "top 10" list, the result doesn't depend on who wrote it, who paid for it or which option is the most hyped: the criteria and their weights are fixed before any scoring, every candidate gets the same research, the facts behind the scores are checked against primary sources, and the winner is stress-tested under different priorities. The proof link at the end opens the full chat, so anyone can check every step._
 
-# ⚖️ <question>
+# FairVerdict: <question>
 **Winner: <name> — <score>/100** · <Clear | With caveats> · as of <date>
 <when too close to call, this line instead: **Too close to call: <A> <score> vs <B> <score>** · as of <date>>
 
@@ -261,8 +265,10 @@ Scores by criterion (0–10, * = low confidence):
 ## Candidate by candidate
 ### 🥇 <name> — <score>/100
 <2–3 sentences: what it is and how it did>
+
 ✅ <strength, with the evidence behind it>
 ❌ <weakness, with the evidence behind it>
+
 **Best for:** … · **Avoid if:** …
 <3–5 strengths and 3–5 weaknesses; repeat for every candidate, in rank order>
 
