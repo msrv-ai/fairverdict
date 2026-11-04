@@ -1,0 +1,14 @@
+{
+  "name": "fairverdict",
+  "displayName": "FairVerdict",
+  "version": "1.0.0",
+  "description": "Impartial judge for \"which is best?\" questions. Fixes weighted criteria before scoring, researches every candidate with equal effort, scores each option 0-100 with pros and cons, names a winner and checks that the result survives changes to the weights.",
+  "author": {
+    "name": "msrv-ai",
+    "url": "https://github.com/msrv-ai"
+  },
+  "homepage": "https://github.com/msrv-ai/fairverdict",
+  "repository": "https://github.com/msrv-ai/fairverdict",
+  "license": "MIT",
+  "keywords": ["decision-making", "comparison", "evaluation", "ranking", "scoring", "unbiased", "judge"]
+}

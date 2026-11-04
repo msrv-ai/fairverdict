@@ -1,0 +1,14 @@
+{
+  "name": "fairverdict",
+  "description": "FairVerdict: an impartial judge plugin for Claude that compares options and names the best one with transparent, weighted 0-100 scores.",
+  "owner": {
+    "name": "msrv-ai"
+  },
+  "plugins": [
+    {
+      "name": "fairverdict",
+      "source": "./",
+      "description": "Impartial judge for \"which is best?\" questions: weighted criteria fixed upfront, 0-100 scores with pros and cons, and a robustness check on the winner."
+    }
+  ]
+}
