@@ -34,7 +34,7 @@ You choose the report:
 
 Both start with a short note naming the AI model that produced the analysis with FairVerdict and explaining why the result can be trusted, followed by the title "FairVerdict: <your question>". Both end with a line reserved for the proof link: the public link to the chat that produced the report, which you create with Share → Anyone with the link.
 
-Every report also comes as a fully formatted Markdown file, written before the chat reply, such as `fairverdict-desktop-mcp-gateways-2026-11-04.md`, ready to publish: on claude.ai it appears as a download, and in Claude Code it is saved in the current folder.
+Every report also comes as a fully formatted Markdown file, ready to publish, such as `fairverdict-desktop-mcp-gateways-2026-11-04.md`. You don't have to ask for it: it arrives before the chat reply, as a file you can open and download. In the Claude apps it appears in the chat; in Claude Code it is saved in the current folder, and the Code tab of the Claude desktop app shows it in the chat too.
 
 ## Speed
 
@@ -65,6 +65,7 @@ The skill lives in `skills/fairverdict`, together with its scoring script. You c
 ## Troubleshooting
 
 - **It asked questions instead of judging.** Name the candidates (or write "pick them yourself") and the report type ("short report") in your first message, and it goes straight to work.
+- **There's no Markdown file to open or download.** The installed copy is probably older than version 1.1.3, and installed copies don't update themselves. In Claude Code, run `claude plugin marketplace update fairverdict`, then `claude plugin update fairverdict@fairverdict`. In the Claude apps, zip the latest `skills/fairverdict` folder and upload it under Capabilities → Skills in place of the old one.
 - **A score looks wrong.** Ask why that score was given. FairVerdict re-checks the evidence and changes the score only if the evidence supports it, then recalculates and shows what moved.
 - **There's no simulation in the report.** Code execution wasn't available, so the totals were calculated by hand.
 - **Recent releases are missing.** Web search wasn't available, so the verdict relies on training data. The report says so.
