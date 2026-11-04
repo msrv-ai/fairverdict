@@ -37,7 +37,9 @@ class PluginPackageTests(unittest.TestCase):
             names = archive.namelist()
             self.assertTrue(all(name.startswith("fairverdict/") for name in names))
             for path in ("plugin.json", ".codex-plugin/plugin.json", ".claude-plugin/plugin.json", "LICENSE",
-                         "skills/fairverdict/SKILL.md", "skills/fairverdict/scripts/judge_score.py", "assets/icon.png"):
+                         "skills/fairverdict/SKILL.md", "skills/fairverdict/scripts/judge_score.py",
+                         "skills/fairverdict/scripts/check_report.py", "skills/fairverdict/references/short-post.md",
+                         "skills/fairverdict/references/full-article.md", "assets/icon.png"):
                 self.assertIn(f"fairverdict/{path}", names)
             for name in names:
                 self.assertNotIn("marketplace", name)
