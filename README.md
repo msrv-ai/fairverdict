@@ -29,10 +29,12 @@ Before it starts, FairVerdict asks whatever your message leaves open, as a multi
 
 You choose the report:
 
-- **Short** — a Reddit-style post that fits on one screen: the winner and its score, a leaderboard, the score matrix, two pros and two cons per candidate, why the winner wins, what would change the verdict, how it was judged, and the key sources.
+- **Short** — a Reddit-style post that fits on one screen, with no tables: the winner and its score, every candidate's score with two pros and two cons, why the winner wins, what would change the verdict, how it was judged, and the key sources.
 - **Full** — a complete article: how the contenders were chosen, the criteria with their weights and what 10/10 means, the results with simulation shares, a section per candidate with pros, cons, "best for" and "avoid if", why the winner wins, robustness and fact check, and sources with dates.
 
-Both start with a line naming the AI model that produced the analysis with FairVerdict. Both end with a line reserved for the proof link: the public link to the chat that produced the report, which you create with Share → Anyone with the link.
+Both start with a short note naming the AI model that produced the analysis with FairVerdict and explaining why the result can be trusted, followed by the title "FairVerdict: <your question>". Both end with a line reserved for the proof link: the public link to the chat that produced the report, which you create with Share → Anyone with the link.
+
+Every report also comes as a Markdown file, such as `fairverdict-desktop-mcp-gateways-2026-11-04.md`, ready to publish: on claude.ai it appears as a download, and in Claude Code it is saved in the current folder.
 
 ## Speed
 
@@ -43,7 +45,7 @@ A short report takes a few minutes and a full one about a quarter of an hour. Re
 - **Web search and page fetches** for research, when your Claude environment provides them. Without web access, the verdict says it relies on the model's training data and flags what may be outdated.
 - **A small Python scoring script**, bundled with the skill at `skills/fairverdict/scripts/judge_score.py`, when code execution is available. It uses only the Python standard library, reads one local JSON file of scores, prints the results and makes no network calls. It computes the weighted totals, the criteria that separate first from second place, the winner under alternative weightings, and the simulation. Without code execution, the arithmetic is done by hand and the simulation is skipped.
 - **Verifier subagents**, when your environment can launch them: one per candidate, on a fast model. For open-source candidates they read what the project publishes about itself — README, architecture and docs files, tech stack, releases — through the GitHub API or repository pages; they don't download or read source code. Closed-source candidates are checked against their official docs. Without subagents, the main session runs the same checks itself and the report says so.
-- Nothing else. FairVerdict doesn't read or write memory, chat history or your project files, and it collects no data.
+- Nothing else. Apart from the report's Markdown file, FairVerdict doesn't read or write memory, chat history or your project files, and it collects no data.
 
 ## Install
 
