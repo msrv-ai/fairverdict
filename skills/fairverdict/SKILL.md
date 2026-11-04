@@ -1,5 +1,5 @@
 ---
-name: judge
+name: fairverdict
 description: FairVerdict, an impartial judge for which-is-best questions. Compares options (frameworks, tech, apps, tools, products) on criteria fixed upfront, scores each 0-100 with pros/cons, names a winner. Use for any X vs Y or what-to-pick question, in any language.
 ---
 

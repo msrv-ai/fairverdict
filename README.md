@@ -41,7 +41,7 @@ A short report takes a few minutes and a full one about a quarter of an hour. Re
 ## What it runs
 
 - **Web search and page fetches** for research, when your Claude environment provides them. Without web access, the verdict says it relies on the model's training data and flags what may be outdated.
-- **A small Python scoring script**, bundled with the skill at `skills/judge/scripts/judge_score.py`, when code execution is available. It uses only the Python standard library, reads one local JSON file of scores, prints the results and makes no network calls. It computes the weighted totals, the criteria that separate first from second place, the winner under alternative weightings, and the simulation. Without code execution, the arithmetic is done by hand and the simulation is skipped.
+- **A small Python scoring script**, bundled with the skill at `skills/fairverdict/scripts/judge_score.py`, when code execution is available. It uses only the Python standard library, reads one local JSON file of scores, prints the results and makes no network calls. It computes the weighted totals, the criteria that separate first from second place, the winner under alternative weightings, and the simulation. Without code execution, the arithmetic is done by hand and the simulation is skipped.
 - **Verifier subagents**, when your environment can launch them: one per candidate, on a fast model. For open-source candidates they read what the project publishes about itself — README, architecture and docs files, tech stack, releases — through the GitHub API or repository pages; they don't download or read source code. Closed-source candidates are checked against their official docs. Without subagents, the main session runs the same checks itself and the report says so.
 - Nothing else. FairVerdict doesn't read or write memory, chat history or your project files, and it collects no data.
 
@@ -54,11 +54,11 @@ claude plugin marketplace add msrv-ai/fairverdict
 claude plugin install fairverdict@fairverdict
 ```
 
-Then ask a which-is-best question, or invoke the skill directly with `/fairverdict:judge`.
+Then ask a which-is-best question, or invoke the skill directly with `/fairverdict:fairverdict`. Claude Code puts the plugin name in front of every plugin skill, which is why the name appears twice.
 
 ### Claude apps
 
-The skill lives in `skills/judge`, together with its scoring script. You can zip that folder and upload it as a custom skill in Claude's settings under Capabilities → Skills.
+The skill lives in `skills/fairverdict`, together with its scoring script. You can zip that folder and upload it as a custom skill in Claude's settings under Capabilities → Skills, then invoke it with `/fairverdict` or just ask a which-is-best question.
 
 ## Troubleshooting
 
