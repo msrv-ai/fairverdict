@@ -25,7 +25,7 @@ Two things come from the user, not from you: which candidates to judge and which
 A verdict should arrive in minutes: aim for about 5 for a short report and about 15 for a full one. Two habits do most of the work:
 
 - **Work in parallel.** Send each round of searches for all candidates in one turn, and launch all fact-check verifiers at once.
-- **Stay lean.** Keep to the research budget in step 4, keep working notes brief and in your own reasoning, and write no notes files. The only files you write are `scores.json` for the bundled scoring script, which you run as it is and never retype, and the finished report as a Markdown file (step 9).
+- **Stay lean.** Keep to the research budget in step 4, keep working notes brief and in your own reasoning, and write no notes files. The only files you write are `scores.json` for the bundled scoring script, which you run as it is and never retype, and the finished report as a Markdown file that you share with the user (step 9).
 
 ## Workflow
 
@@ -37,7 +37,7 @@ A verdict should arrive in minutes: aim for about 5 for a short report and about
 6. **Fact-check** — fast, blind verifiers check the facts your scores rest on
 7. **Compute** — run the bundled scoring script
 8. **Bias audit** — fix whatever fails
-9. **Verdict** — the short or the full report
+9. **Verdict** — the short or the full report: first as a Markdown file the user can open and download, then the same text in the chat
 
 ### 1. Intake
 
@@ -203,7 +203,13 @@ Write the report the user chose, in the user's language. Both kinds share their 
 - **First line, always:** the attribution note, translated into the user's language with the link kept. Leave out any claim in it that didn't hold for this run, such as the source check when there was no web access. Use your own model name as precisely as you know it, such as "Claude Opus 5.5"; if you don't know the exact version, write "Claude".
 - **Last line, always:** the proof line in square brackets, as a placeholder for the user to fill: `[Proof: <share link to this chat>]`, with the placeholder text in the user's language. Only the user can publish the chat, so never insert a link yourself — not this chat's private URL, and not a guessed one. Right after the report, add one line telling the user to share this chat with "Anyone with the link" (Share → Anyone with the link), copy that link and paste it in place of the placeholder.
 
-**Markdown file first, always.** Start the verdict by writing the report to a Markdown file named `fairverdict-<topic>-<YYYY-MM-DD>.md`, with the topic as a few lowercase English words joined by hyphens (e.g. `fairverdict-desktop-mcp-gateways-2026-11-04.md`), and give it to the user the way your environment shares files: on claude.ai, in the outputs folder; in Claude Code, in the current working directory. Then show the same text in the chat. Without file tools, say in one line that the file was skipped and give the report in the chat only.
+**The Markdown file comes first, every time.** Every report also comes as a Markdown file that the user can open and download. Don't ask whether they want one; make it before any of the report appears in the chat:
+
+1. Write the report to `fairverdict-<topic>-<YYYY-MM-DD>.md`, with the topic as a few lowercase English words joined by hyphens (e.g. `fairverdict-desktop-mcp-gateways-2026-11-04.md`). Save it where your environment keeps files for the user: on claude.ai and in the Claude apps' chat, in `/mnt/user-data/outputs/`; in Claude Code, in the current working directory; anywhere else, in the folder your environment uses for files it gives the user.
+2. Share the file. A saved file doesn't reach the user by itself: pass its path to your tool for sharing files, such as `present_files` on claude.ai or `SendUserFile` in the Code tab of the Claude desktop app, so that it shows up in the chat as a file to open and download. Without such a tool, link to the file instead: a `computer://` link on claude.ai, the file's path in Claude Code.
+3. Then write the same report in full in the chat. The file doesn't replace it, even where you would usually only summarize a file you've shared.
+
+Without file tools, put the report in a Markdown artifact if you can create one, since an artifact can be opened and downloaded too. Otherwise, say in one line that the file was skipped and give the report in the chat only.
 
 The file is Markdown source, ready to publish, not plain text. Keep all of the template's formatting: the `#` title, the `_italic_` attribution note with its link, `**bold**` labels, the full report's `##` headings and tables, and a blank line between blocks. Name sources by site and page title, without links: the only links in a report are the FairVerdict link in the attribution note and the proof link. Where lines follow each other without a blank line, such as a candidate's name and its ✅ and ❌ lines or the ⛔ lines, end every line but the last with two spaces, a Markdown line break. Otherwise GitHub, Reddit's Markdown editor and most site generators join those lines into one paragraph.
 
@@ -291,7 +297,7 @@ Scores by criterion (0–10, * = low confidence):
 
 ### Follow-ups
 
-If the user disputes a score, re-examine the evidence for that cell and change it only if the evidence supports the change — not because the user pushed back. If it changes, rerun the script and say what moved. New context from the user (e.g. "my team already knows Kotlin") is a legitimate reason to rescore: update the affected scores, rerun, and show before and after. A request for the other report type reuses the same research and scores.
+If the user disputes a score, re-examine the evidence for that cell and change it only if the evidence supports the change — not because the user pushed back. If it changes, rerun the script and say what moved. New context from the user (e.g. "my team already knows Kotlin") is a legitimate reason to rescore: update the affected scores, rerun, and show before and after. A request for the other report type reuses the same research and scores. A new or revised report also comes as a Markdown file, written and shared as in step 9; the other report type gets its own file, such as `fairverdict-<topic>-full-<YYYY-MM-DD>.md`.
 
 ### Scope
 
