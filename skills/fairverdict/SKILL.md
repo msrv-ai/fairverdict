@@ -205,7 +205,7 @@ Write the report the user chose, in the user's language. Both kinds share their 
 
 **Markdown file first, always.** Start the verdict by writing the report to a Markdown file named `fairverdict-<topic>-<YYYY-MM-DD>.md`, with the topic as a few lowercase English words joined by hyphens (e.g. `fairverdict-desktop-mcp-gateways-2026-11-04.md`), and give it to the user the way your environment shares files: on claude.ai, in the outputs folder; in Claude Code, in the current working directory. Then show the same text in the chat. Without file tools, say in one line that the file was skipped and give the report in the chat only.
 
-The file is Markdown source, ready to publish, not plain text. Keep all of the template's formatting: the `#` title, the `_italic_` attribution note, `**bold**` labels, `[title](url)` links, the full report's `##` headings and tables, and a blank line between blocks. Where lines follow each other without a blank line, such as a candidate's name and its ✅ and ❌ lines or the ⛔ lines, end every line but the last with two spaces, a Markdown line break. Otherwise GitHub, Reddit's Markdown editor and most site generators join those lines into one paragraph.
+The file is Markdown source, ready to publish, not plain text. Keep all of the template's formatting: the `#` title, the `_italic_` attribution note with its link, `**bold**` labels, the full report's `##` headings and tables, and a blank line between blocks. Name sources by site and page title, without links: the only links in a report are the FairVerdict link in the attribution note and the proof link. Where lines follow each other without a blank line, such as a candidate's name and its ✅ and ❌ lines or the ⛔ lines, end every line but the last with two spaces, a Markdown line break. Otherwise GitHub, Reddit's Markdown editor and most site generators join those lines into one paragraph.
 
 **Short report** — a Reddit-style post that fits on one screen, about 35 lines for five candidates, with no tables (the leaderboard and the score matrix are for the full report):
 
@@ -234,7 +234,7 @@ _This analysis was produced by <model name> with [FairVerdict](https://msrv.dev/
 
 **How it was judged:** candidates <named by the user | picked by <signals>; not included: <name — reason>>; rubric fixed before scoring; <N> facts checked by independent verifiers (<n> confirmed, <n> corrected); <winner> wins <N>% of simulations
 
-**Sources:** [title](url) · [title](url) · <the 5–8 that the scores rest on most>
+**Sources:** <site: page title> · <site: page title> · <the 5–8 that the scores rest on most, named without links>
 
 [Proof: <share link to this chat>]
 ```
@@ -283,8 +283,8 @@ Scores by criterion (0–10, * = low confidence):
 <simulation share; weightings that flip or tie the result; facts checked by independent verifiers with confirmed, corrected and not-found counts; changes made by the bias audit>
 
 ## Sources
-- [title](url) — <date>
-<the 10–15 sources the scores rest on most>
+- <site: page title> — <date>
+<the 10–15 sources the scores rest on most, named without links>
 
 [Proof: <share link to this chat>]
 ```
