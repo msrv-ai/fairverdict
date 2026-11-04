@@ -62,8 +62,11 @@ def validate(root):
         if relative.startswith(".codex"):
             require(compatibility.get("interface") == interface, "Codex presentation differs from portable manifest")
             require(compatibility.get("skills") == "./skills/", "Codex skills path is missing")
-    require((root / "skills/fairverdict/SKILL.md").is_file(), "FairVerdict skill is missing")
-    require((root / "skills/fairverdict/scripts/judge_score.py").is_file(), "bundled scorer is missing")
+    for relative, label in (("SKILL.md", "FairVerdict skill"), ("scripts/judge_score.py", "bundled scorer"),
+                            ("scripts/check_report.py", "bundled report checker"),
+                            ("references/short-post.md", "short-post template"),
+                            ("references/full-article.md", "full-article template")):
+        require((root / "skills/fairverdict" / relative).is_file(), f"{label} is missing")
     return manifest
 
 
