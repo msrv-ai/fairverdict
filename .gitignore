@@ -1,0 +1,14 @@
+# OS files (the plugin directory rejects these)
+.DS_Store
+Thumbs.db
+desktop.ini
+__MACOSX/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
