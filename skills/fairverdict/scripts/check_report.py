@@ -14,6 +14,9 @@ import sys
 from pathlib import Path
 
 FAIRVERDICT_URL = "https://msrv.dev/fairverdict"
+MSRV_URL = "https://msrv.dev"
+SIGNATURE = (f"*This report was made with AI. [FairVerdict]({FAIRVERDICT_URL}/) by [msrv]({MSRV_URL}) "
+             "was used for objective analysis.*")
 # Soft word limits as (base, per candidate) for the minimum and the maximum; tables and headings count.
 WORD_LIMITS = {"short": ((0, 0), (220, 75)), "full": ((500, 170), (1000, 450))}
 
@@ -22,12 +25,12 @@ INLINE_CODE = re.compile(r"`[^`\n]*`")
 PLACEHOLDER = re.compile(r"<(?![\s=<])[^<>\n]{1,80}(?<![\s-])>")
 MD_LINK = re.compile(r"\[[^\]\n]*\]\(\s*<?([^)\s>]+)>?[^)\n]*\)")
 BARE_URL = re.compile(r"https?://[^\s)\]>]+")
+BRACKETED_LINE = re.compile(r"^\*{0,2}\[[^\]\n]+\]\*{0,2}$")  # e.g. a leftover [Proof: ...] placeholder
 CONFIG_NAME = re.compile(r"\b(?:CLAUDE|AGENTS|GEMINI|SKILL)\.md\b|\.cursorrules|\.claude/|\.codex/|"
                          r"skills/fairverdict|judge_score\.py|check_report\.py|scores\.json", re.I)
 SOURCES_HEADING = re.compile(r"^#{1,6}\s*\W*\s*(?:sources?|references|bibliography|further reading|"
                              r"источники|список источников|литература|ссылки|джерела|fuentes|referencias|"
                              r"quellen|literatur|références|fontes|źródła)\b", re.I)
-PROOF_LINE = re.compile(r"^\*{0,2}\[[^\]\n]+\](?:\(\s*https?://[^)\s]+\s*\))?\*{0,2}$")
 SCORE_OUT_OF_100 = re.compile(r"\b\d{1,3}\s*/\s*100\b")
 LIST_ITEM = re.compile(r"^\s{0,3}(?:[-*+]|\d{1,2}[.)])\s+\S")
 DELIMITER_CELL = re.compile(r"^\s*:?-{3,}:?\s*$")
@@ -42,6 +45,18 @@ def cells(row):
     if row.endswith("|") and not row.endswith("\\|"):
         row = row[:-1]
     return re.split(r"(?<!\\)\|", row)
+
+
+def links(line):
+    return set(MD_LINK.findall(line)) | set(BARE_URL.findall(line))
+
+
+def own_link(url):
+    """Return "fairverdict" or "msrv" for the signature's two links, None for any other link."""
+    url = url.rstrip(".,;:!?*_")
+    if url.startswith(FAIRVERDICT_URL):
+        return "fairverdict"
+    return "msrv" if url.rstrip("/") == MSRV_URL else None
 
 
 def prose_lines(lines):
@@ -144,20 +159,11 @@ def main():
     elif nonblank[0][0] != h1[0]:
         report("WARN", nonblank[0][0], "start the report with its H1 headline")
 
-    proof_number, proof = nonblank[-1]
-    if not PROOF_LINE.match(proof.strip()):
-        report("ERROR", proof_number, "end with the proof placeholder line, e.g. [Proof: public share link not yet provided]")
-
-    if FAIRVERDICT_URL not in text:
-        report("ERROR", None, f"the attribution line must link FairVerdict to {FAIRVERDICT_URL}/")
+    signature_number, signature = nonblank[-1]
+    if {"fairverdict", "msrv"} - {own_link(url) for url in links(signature)}:
+        report("ERROR", signature_number, f"end with the signature, translated into the report's language: {SIGNATURE}")
     if not any(line.lstrip().startswith(">") and SCORE_OUT_OF_100.search(line) for _, line in prose):
         report("ERROR", None, "the verdict callout (a blockquote with the score out of 100) is missing")
-    if args.type == "short":
-        callout = next((n for n, line in prose if line.lstrip().startswith(">")), None)
-        for n, line in prose:
-            if FAIRVERDICT_URL in line and (callout is None or n < callout):
-                report("WARN", n, "move the FairVerdict link to the end of the method line: a post that opens "
-                                  "with a link to its maker's site reads as promotion")
 
     for n, line in prose:
         for match in PLACEHOLDER.finditer(line):
@@ -166,15 +172,19 @@ def main():
                 report("ERROR", n, f"unresolved template field or HTML tag: {match.group(0)}")
         if SOURCES_HEADING.match(line):
             report("ERROR", n, "remove the sources section: reports carry no source list")
+        if BRACKETED_LINE.match(line.strip()):
+            report("ERROR", n, f"remove the placeholder line {line.strip()}: reports end with the signature, "
+                               "with no proof or share-link line")
         if CONFIG_NAME.search(line):
             report("ERROR", n, f"remove the configuration or internal file name: {CONFIG_NAME.search(line).group(0)}")
-        if n == proof_number:
-            continue  # the proof line may carry a public share link the user supplied
-        urls = set(MD_LINK.findall(line)) | set(BARE_URL.findall(line))
+        urls = links(line)
         for url in sorted(urls):
-            if not url.startswith(("#", FAIRVERDICT_URL)):
-                report("ERROR", n, f"remove the link {url}: the only link is the FairVerdict attribution "
+            if not url.startswith("#") and not own_link(url):
+                report("ERROR", n, f"remove the link {url}: reports link only to FairVerdict and msrv "
                                    "(unless the host requires inline citations)")
+        if args.type == "short" and n != signature_number and any(own_link(url) for url in urls):
+            report("WARN", n, "keep a post's links in the signature at the end: on Reddit, a post that opens "
+                              "with a link to its maker's site, or links it twice, reads as promotion")
 
     check_tables(prose, report, max_columns=4 if args.type == "short" else None)
     check_lists(prose, report)

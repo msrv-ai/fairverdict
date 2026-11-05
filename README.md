@@ -43,7 +43,7 @@ You choose the report:
   - the verdict callout and the winner's catch;
   - a ranking table of at most four columns, with the winner in bold and a number behind every claim;
   - why the winner wins and who should pick what;
-  - the method in a few lines after the results, ending with the FairVerdict link; the top carries only the AI attribution, because Reddit readers treat a post that opens with a link to its maker's site as promotion.
+  - the method in a few lines after the results; the top carries only the AI attribution, because Reddit readers treat a post that opens with a link to its maker's site as promotion.
 
   It renders in Reddit's Markdown editor, on GitHub and in any Markdown viewer. To post it on Reddit, put the headline in the title field and paste the rest into the editor's Markdown mode. For X, LinkedIn, Telegram or Hacker News it switches to ranked lines.
 - **Full article** — a publishable article with the structure of the most-read "best X" roundups and "X vs Y" comparisons:
@@ -56,7 +56,7 @@ You choose the report:
 
   Two-way comparisons are written round by round, criterion by criterion. Should-we-switch questions lead with "switch" or "stay" and count the cost of moving.
 
-Every pick, "best for" and "what would change it" comes from the computed scores or a verified fact, never from reputation. Both reports keep important uncertainties and conflicts of interest and name the model that produced the analysis. The only emoji are the medal in the verdict callout and ⛔ for a disqualified option. Reports have no Sources section or configuration filenames; evidence is still researched and checked during the analysis. A proof-link placeholder lets you add a public share link if your environment supports sharing chats.
+Every pick, "best for" and "what would change it" comes from the computed scores or a verified fact, never from reputation. Both reports keep important uncertainties and conflicts of interest and name the model that produced the analysis. The only emoji are the medal in the verdict callout and ⛔ for a disqualified option. Reports have no Sources section or configuration filenames; evidence is still researched and checked during the analysis. Both reports end with a signature in your language: the report was made with AI, and FairVerdict by msrv was used for objective analysis, with links to [msrv.dev/fairverdict](https://msrv.dev/fairverdict/) and [msrv.dev](https://msrv.dev).
 
 **The complete report is saved first as a Markdown file**, such as `fairverdict-desktop-mcp-gateways-2026-11-04.md`. The chat reply is only a 3–5-line summary, at most 90 words, with the winner, the main caveat, and a link or download for the file. It does not repeat the report. Local environments save it in the working folder; hosted environments use their supported file-download mechanism. If file tools are unavailable, FairVerdict explains that limitation and provides the report in chat.
 
@@ -74,7 +74,7 @@ A short report takes a few minutes and a full one about a quarter of an hour. Re
 - **A report checker**, bundled at `skills/fairverdict/scripts/check_report.py`, run on the finished file when code execution is available. It flags problems for the model to fix before you see the report:
   - template fields left unfilled, broken tables and formatting that breaks on Reddit;
   - stray links, a sources section or configuration filenames;
-  - a missing verdict callout or proof line;
+  - a missing verdict callout or signature;
   - candidates or scores missing from the report.
 
   Like the scorer, it uses only the standard library, reads only the files it is given and makes no network calls.
@@ -103,7 +103,7 @@ ChatGPT Work and web use account-backed plugins; adding a local Codex marketplac
 python3 scripts/package_plugin.py
 ```
 
-The result is `dist/fairverdict-1.2.1.zip`. In an environment where Plugin Creator is available, give it this ZIP and ask it to create a private FairVerdict plugin in your account or workspace. Availability and installation depend on that environment's supported plugin tools and your account access. This package is prepared for private import; it has not been published to a public plugin directory.
+The result is `dist/fairverdict-1.2.2.zip`. In an environment where Plugin Creator is available, give it this ZIP and ask it to create a private FairVerdict plugin in your account or workspace. Availability and installation depend on that environment's supported plugin tools and your account access. This package is prepared for private import; it has not been published to a public plugin directory.
 
 The ZIP contains a root `plugin.json`, the skill, and its Python scoring script. For the supported conversion and packaging conventions, see the [official Claude-plugin import guide](https://developers.openai.com/plugins/guides/submit-claude-plugin).
 
@@ -134,7 +134,6 @@ The skill lives in `skills/fairverdict`, together with its scoring script. If yo
 - **You want different priorities.** Say which weights to change. The whole comparison is rescored from scratch, never adjusted after the fact.
 - **You want the other report type.** Ask for it: the same research and scores are reused.
 - **The chat reply is short.** The complete report is in the linked Markdown file; the chat contains only the summary.
-- **The proof line is a placeholder.** Add a public share link if your environment supports it. FairVerdict never invents a link or publishes the chat for you.
 - **It works in Codex but is missing in ChatGPT.** A local marketplace is installed on your machine. Work/web need a separate account-backed private-plugin installation.
 
 ## License

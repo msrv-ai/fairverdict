@@ -217,4 +217,4 @@ Pick React Native with Expo if the path from code to the stores (cloud builds, o
 
 ---
 
-[Proof: public share link not yet provided]
+*This report was made with AI. [FairVerdict](https://msrv.dev/fairverdict/) by [msrv](https://msrv.dev) was used for objective analysis.*
