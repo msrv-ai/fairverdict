@@ -24,7 +24,7 @@ Write it in the user's language. Plain, specific, a little dry: the numbers do t
   - head-to-head: "<A> vs <B> for <job>: <winner> wins <score> to <score>"
   - switch: "Should you switch from <A> to <B>? <Switch | Stay> — <score> vs <score>"
   - too close to call: "<A> vs <B> for <job>: too close to call, <score> to <score> (<N> options scored)"
-- **Byline** — one italic line: the date and the model actually running the analysis. No link here: on Reddit a post that opens with a link to its maker's site reads as promotion, so the FairVerdict link ends the method line instead.
+- **Byline** — one italic line: the date and the model actually running the analysis. No link here: on Reddit a post that opens with a link to its maker's site reads as promotion, so the links wait for the signature at the end.
 - **Opening** — one or two sentences that establish credibility, the way strong posts open with how long the author ran the tools:
   - how many options were compared, on how many criteria, fixed before any research;
   - how many key facts were checked;
@@ -40,11 +40,10 @@ Write it in the user's language. Plain, specific, a little dry: the numbers do t
   - who chose the candidates, and the notable options left out;
   - the criteria with their weights;
   - that the rubric was fixed before research;
-  - the fact-check counts as the verifiers returned them, and any fact settled afterwards;
-  - and, last, the FairVerdict link.
+  - the fact-check counts as the verifiers returned them, and any fact settled afterwards.
 - **Discussion question** — only when the user is posting for an audience: one specific question that asks for experience the analysis couldn't measure ("Shipped one of these to production? Where did it hurt?"). Never "Thoughts?".
 - **Edit line** — when a follow-up revises the post, add "**Edit:** <what changed and why>" right under the byline, so readers see what moved.
-- **Footer** — the proof placeholder is the last line.
+- **Signature** — the last line, in italics: the report was made with AI, and FairVerdict by msrv was used for objective analysis, with its two links. Translate the sentences; keep "FairVerdict by msrv" and the links as they are. These are the post's only links, and the line doubles as its AI disclosure.
 
 ## Markdown that survives Reddit
 
@@ -103,11 +102,11 @@ Write it in the user's language. Plain, specific, a little dry: the numbers do t
 
 ---
 
-**How it was judged:** <N> <unit> <named by you | chosen by <signals>><; left out: <option> (<reason>)> · <criterion> <w>% · <criterion> <w>% · … · rubric fixed before research · <n> facts checked<, independently>: **<n> confirmed · <n> contradicted · <n> not found**<, <n> not checked><; settled afterwards: <fact>><; corrections: <what changed and why>, <#1> <total before> → <total after>> · scored with [FairVerdict](https://msrv.dev/fairverdict/).
+**How it was judged:** <N> <unit> <named by you | chosen by <signals>><; left out: <option> (<reason>)> · <criterion> <w>% · <criterion> <w>% · … · rubric fixed before research · <n> facts checked<, independently>: **<n> confirmed · <n> contradicted · <n> not found**<, <n> not checked><; settled afterwards: <fact>><; corrections: <what changed and why>, <#1> <total before> → <total after>>.
 
 <Only when posting for an audience: **<Discussion question>**>
 
-[Proof: public share link not yet provided]
+*This report was made with AI. [FairVerdict](https://msrv.dev/fairverdict/) by [msrv](https://msrv.dev) was used for objective analysis.*
 ```
 
 ## Variant — head-to-head
@@ -144,7 +143,7 @@ For exactly two candidates, replace "The ranking" with a scorecard by criterion,
 When the user names a destination other than Reddit or a Markdown site, keep the same order and adapt:
 
 - **No tables (X, LinkedIn, Telegram, Hacker News)** — replace each table with ranked lines: "1. <candidate> — <score>/100 — <payoff> → <trade-off>".
-- **No bold either (X, LinkedIn, Hacker News)** — write plain text and keep the line breaks.
-- **X thread** — the headline and the callout make the first post, then one post per candidate of at most 280 characters, then a last post with the method and the question.
+- **No bold either (X, LinkedIn, Hacker News)** — write plain text and keep the line breaks. In the signature, put each link as a bare URL after its name.
+- **X thread** — the headline and the callout make the first post, then one post per candidate of at most 280 characters, then a last post with the method, the question and the signature.
 - **LinkedIn** — the verdict must fit in the first two lines, before the "see more" cut. One idea per line.
 - **Hacker News** — plain paragraphs, no emoji. The title states the finding without hype, caps or exclamation marks.

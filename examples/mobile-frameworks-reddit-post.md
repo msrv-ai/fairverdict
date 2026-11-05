@@ -39,8 +39,8 @@
 
 ---
 
-**How it was judged:** Flutter plus the 4 most-adopted alternatives (GitHub stars, npm and NuGet downloads, JetBrains' survey) · time to first app 15% · UI iteration 25% · libraries & native APIs 20% · learning curve 15% · build & release 15% · runtime 10% · rubric fixed before research · 30 facts checked independently: **20 confirmed · 0 contradicted · 10 not found**; React Native lost a point each on time to first app (Expo Go on iPhone) and libraries (bias audit: that point rested on popularity) · scored with [FairVerdict](https://msrv.dev/fairverdict/).
+**How it was judged:** Flutter plus the 4 most-adopted alternatives (GitHub stars, npm and NuGet downloads, JetBrains' survey) · time to first app 15% · UI iteration 25% · libraries & native APIs 20% · learning curve 15% · build & release 15% · runtime 10% · rubric fixed before research · 30 facts checked independently: **20 confirmed · 0 contradicted · 10 not found**; React Native lost a point each on time to first app (Expo Go on iPhone) and libraries (bias audit: that point rested on popularity).
 
 **Shipped the same app in both? Which cost you more time: the release pipeline or the UI loop?**
 
-[Proof: public share link not yet provided]
+*This report was made with AI. [FairVerdict](https://msrv.dev/fairverdict/) by [msrv](https://msrv.dev) was used for objective analysis.*

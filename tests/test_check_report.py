@@ -10,8 +10,10 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 CHECKER = ROOT / "skills/fairverdict/scripts/check_report.py"
+SIGNATURE = ("*This report was made with AI. [FairVerdict](https://msrv.dev/fairverdict/) by [msrv](https://msrv.dev) "
+             "was used for objective analysis.*")
 
-GOOD_SHORT = """# Alpha beats Beta for small teams: 87 vs 60
+GOOD_SHORT = f"""# Alpha beats Beta for small teams: 87 vs 60
 
 *04 Nov 2026 · AI analysis by Example Model*
 
@@ -30,9 +32,9 @@ GOOD_SHORT = """# Alpha beats Beta for small teams: 87 vs 60
 
 **What would change it:** nothing in the tested weightings.
 
-**How it was judged:** 2 options · scored with [FairVerdict](https://msrv.dev/fairverdict/).
+**How it was judged:** 2 options · rubric fixed before research.
 
-[Proof: public share link not yet provided]
+{SIGNATURE}
 """
 
 
@@ -70,21 +72,37 @@ class CheckReportTests(unittest.TestCase):
         self.assertEqual(run(text, "--type", "short").returncode, 0)
 
     def test_source_list_and_links_fail(self):
-        text = GOOD_SHORT.replace("[Proof:", "## Sources\n\n- [Docs](https://example.com/docs)\n\n[Proof:")
+        text = GOOD_SHORT.replace(SIGNATURE, "## Sources\n\n- [Docs](https://example.com/docs)\n"
+                                             "- [Blog](https://msrv.dev/blog)\n\n" + SIGNATURE)
         result = run(text, "--type", "short")
         self.assertEqual(result.returncode, 1)
         self.assertIn("sources section", result.stdout)
         self.assertIn("https://example.com/docs", result.stdout)
+        self.assertIn("https://msrv.dev/blog", result.stdout)
 
-    def test_proof_line_may_hold_a_supplied_share_link(self):
-        text = GOOD_SHORT.replace("[Proof: public share link not yet provided]",
-                                  "[Proof: shared chat](https://example.com/share/abc)")
-        self.assertEqual(run(text, "--type", "short").returncode, 0)
+    def test_translated_signature_passes(self):
+        text = GOOD_SHORT.replace(SIGNATURE, "*Отчёт сделан с помощью ИИ. Для объективного анализа использовался "
+                                             "[FairVerdict](https://msrv.dev/fairverdict/) by [msrv](https://msrv.dev).*")
+        result = run(text, "--type", "short")
+        self.assertEqual(result.returncode, 0, result.stdout)
 
-    def test_missing_proof_line_fails(self):
-        result = run(GOOD_SHORT.replace("[Proof: public share link not yet provided]\n", ""), "--type", "short")
+    def test_proof_line_fails(self):
+        proof = "[Proof: public share link not yet provided]"
+        result = run(GOOD_SHORT.replace(SIGNATURE, proof), "--type", "short")
         self.assertEqual(result.returncode, 1)
-        self.assertIn("proof placeholder", result.stdout)
+        self.assertIn("end with the signature", result.stdout)
+        result = run(GOOD_SHORT.replace(SIGNATURE, f"{proof}\n\n{SIGNATURE}"), "--type", "short")
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("remove the placeholder line [Proof:", result.stdout)
+        self.assertIn("1 error(s)", result.stdout)
+
+    def test_signature_needs_both_links(self):
+        for link, name in (("[FairVerdict](https://msrv.dev/fairverdict/)", "FairVerdict"),
+                           ("[msrv](https://msrv.dev)", "msrv")):
+            with self.subTest(link=link):
+                result = run(GOOD_SHORT.replace(link, name), "--type", "short")
+                self.assertEqual(result.returncode, 1)
+                self.assertIn("end with the signature", result.stdout)
 
     def test_configuration_file_name_fails(self):
         text = GOOD_SHORT.replace("Alpha wins on correctness.", "Alpha wins; add it to CLAUDE.md.")
@@ -117,19 +135,16 @@ class CheckReportTests(unittest.TestCase):
         self.assertIn("5 columns", result.stdout)
         self.assertNotIn("decorative emoji 🥇", result.stdout)
 
-    def test_link_at_the_top_of_a_post_warns(self):
-        text = GOOD_SHORT.replace("AI analysis by Example Model*",
-                                  "AI analysis by Example Model with [FairVerdict](https://msrv.dev/fairverdict/)*")
-        result = run(text, "--type", "short")
-        self.assertEqual(result.returncode, 0, result.stdout)
-        self.assertIn("move the FairVerdict link", result.stdout)
-        self.assertNotIn("move the FairVerdict link", run(text, "--type", "full").stdout)
-
-    def test_missing_fairverdict_link_fails(self):
-        text = GOOD_SHORT.replace(" · scored with [FairVerdict](https://msrv.dev/fairverdict/)", "")
-        result = run(text, "--type", "short")
-        self.assertEqual(result.returncode, 1)
-        self.assertIn("must link FairVerdict", result.stdout)
+    def test_post_links_outside_the_signature_warn(self):
+        link = "[FairVerdict](https://msrv.dev/fairverdict/)"
+        for where, text in (
+                ("byline", GOOD_SHORT.replace("by Example Model*", f"by Example Model with {link}*")),
+                ("method line", GOOD_SHORT.replace("fixed before research.", f"fixed before research · {link}."))):
+            with self.subTest(where=where):
+                result = run(text, "--type", "short")
+                self.assertEqual(result.returncode, 0, result.stdout)
+                self.assertIn("keep a post's links in the signature", result.stdout)
+                self.assertNotIn("keep a post's links", run(text, "--type", "full").stdout)
 
     def test_wrong_score_and_missing_section_warn(self):
         result = run(GOOD_SHORT.replace("**87 / 100**", "**88 / 100**").replace("**87**", "**88**")

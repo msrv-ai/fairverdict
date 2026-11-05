@@ -51,7 +51,7 @@ About **2,000–3,000 words for five candidates, tables included**, less for few
   "Not found" doesn't mean "disproved".
 - **FAQ** — three to six questions a reader is likely to ask next, each as an H3 and answered in one to three sentences from the research: is it still maintained, what does it cost, how hard is migrating, does it support <platform>, which one is easiest to learn. Leave out a question the evidence can't answer.
 - **Bottom line** — one short paragraph: who should pick the winner, who should pick something else, and the one condition that would change the verdict. No new facts.
-- **Footer** — a horizontal rule, then the proof placeholder as the last line.
+- **Signature** — a horizontal rule, then one italic line as the last line: the report was made with AI, and FairVerdict by msrv was used for objective analysis, with its two links. Translate the sentences; keep "FairVerdict by msrv" and the links as they are.
 
 Emoji stay out of the article body, as in editorial roundups: the 🥇 in the callout and ⛔ for a disqualified candidate are the only ones.
 
@@ -178,7 +178,7 @@ Emoji stay out of the article body, as in editorial roundups: the 🥇 in the ca
 
 ---
 
-[Proof: public share link not yet provided]
+*This report was made with AI. [FairVerdict](https://msrv.dev/fairverdict/) by [msrv](https://msrv.dev) was used for objective analysis.*
 ```
 
 ## Variant — head-to-head
