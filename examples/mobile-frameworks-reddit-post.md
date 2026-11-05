@@ -1,6 +1,6 @@
 # React Native vs Flutter for building mobile apps fast: too close to call (81 vs 80), 5 frameworks scored on 6 criteria
 
-*November 5, 2026 · AI analysis by Claude Opus 5.5 with [FairVerdict](https://msrv.dev/fairverdict/)*
+*November 5, 2026 · AI analysis by Claude Opus 5.5*
 
 5 cross-platform frameworks scored on 6 criteria fixed before any research, 30 key facts checked by independent verifiers. "Best" means fastest to build with, for a small team starting fresh, with runtime performance as a guardrail.
 
@@ -39,7 +39,7 @@
 
 ---
 
-**How it was judged:** Flutter plus the 4 most-adopted alternatives (GitHub stars, npm and NuGet downloads, JetBrains' survey) · time to first app 15% · UI iteration 25% · libraries & native APIs 20% · learning curve 15% · build & release 15% · runtime 10% · rubric fixed before research · 30 facts checked independently: **20 confirmed · 0 contradicted · 10 not found**; React Native lost a point each on time to first app (Expo Go on iPhone) and libraries (bias audit: that point rested on popularity).
+**How it was judged:** Flutter plus the 4 most-adopted alternatives (GitHub stars, npm and NuGet downloads, JetBrains' survey) · time to first app 15% · UI iteration 25% · libraries & native APIs 20% · learning curve 15% · build & release 15% · runtime 10% · rubric fixed before research · 30 facts checked independently: **20 confirmed · 0 contradicted · 10 not found**; React Native lost a point each on time to first app (Expo Go on iPhone) and libraries (bias audit: that point rested on popularity) · scored with [FairVerdict](https://msrv.dev/fairverdict/).
 
 **Shipped the same app in both? Which cost you more time: the release pipeline or the UI loop?**
 

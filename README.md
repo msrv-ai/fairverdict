@@ -17,7 +17,7 @@ Impartial here doesn't mean that every option gets a prize. If the evidence show
 - **Equal effort for every candidate.** Each option gets the same research, with the same queries, including explicit searches for its limitations and known problems. Evidence beats reputation, and independent measurements beat vendor marketing.
 - **Anchored scoring.** Scores are given one criterion at a time across all candidates, on a 0–10 scale with fixed meanings and a confidence level for each score.
 - **Independent fact-check.** After scoring, fast verifier subagents check the facts each score rests on against what the candidate's public repository publishes, or its official docs for closed-source products. Verifiers never see the scores or the ranking, so they have nothing to confirm.
-- **A bias audit before the verdict.** Order effects, name swaps, popularity, familiarity, outdated reputations, invented "balance" and conflicts of interest are checked and corrected.
+- **A bias audit before any totals.** Order effects, popularity, familiarity, outdated reputations, invented "balance" and conflicts of interest are checked and corrected while the scores are still blind to who is winning. Once the totals are visible, a score changes only for a reason that doesn't depend on them, such as the name-swap check on the two closest candidates, and the report shows the totals before and after.
 - **No user history.** The verdict uses only the context you state in the current conversation. FairVerdict doesn't consult memory or past chats to infer your preferences.
 - **A robustness check.** The winner is re-tested under alternative weightings and 5,000 simulations with jittered weights and scores. Results that are too close are reported as "too close to call" instead of forcing a winner.
 
@@ -43,7 +43,7 @@ You choose the report:
   - the verdict callout and the winner's catch;
   - a ranking table of at most four columns, with the winner in bold and a number behind every claim;
   - why the winner wins and who should pick what;
-  - the method in a few lines after the results.
+  - the method in a few lines after the results, ending with the FairVerdict link; the top carries only the AI attribution, because Reddit readers treat a post that opens with a link to its maker's site as promotion.
 
   It renders in Reddit's Markdown editor, on GitHub and in any Markdown viewer. To post it on Reddit, put the headline in the title field and paste the rest into the editor's Markdown mode. For X, LinkedIn, Telegram or Hacker News it switches to ranked lines.
 - **Full article** — a publishable article with the structure of the most-read "best X" roundups and "X vs Y" comparisons:
@@ -103,7 +103,7 @@ ChatGPT Work and web use account-backed plugins; adding a local Codex marketplac
 python3 scripts/package_plugin.py
 ```
 
-The result is `dist/fairverdict-1.2.0.zip`. In an environment where Plugin Creator is available, give it this ZIP and ask it to create a private FairVerdict plugin in your account or workspace. Availability and installation depend on that environment's supported plugin tools and your account access. This package is prepared for private import; it has not been published to a public plugin directory.
+The result is `dist/fairverdict-1.2.1.zip`. In an environment where Plugin Creator is available, give it this ZIP and ask it to create a private FairVerdict plugin in your account or workspace. Availability and installation depend on that environment's supported plugin tools and your account access. This package is prepared for private import; it has not been published to a public plugin directory.
 
 The ZIP contains a root `plugin.json`, the skill, and its Python scoring script. For the supported conversion and packaging conventions, see the [official Claude-plugin import guide](https://developers.openai.com/plugins/guides/submit-claude-plugin).
 

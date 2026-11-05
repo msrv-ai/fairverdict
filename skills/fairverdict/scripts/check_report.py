@@ -152,6 +152,12 @@ def main():
         report("ERROR", None, f"the attribution line must link FairVerdict to {FAIRVERDICT_URL}/")
     if not any(line.lstrip().startswith(">") and SCORE_OUT_OF_100.search(line) for _, line in prose):
         report("ERROR", None, "the verdict callout (a blockquote with the score out of 100) is missing")
+    if args.type == "short":
+        callout = next((n for n, line in prose if line.lstrip().startswith(">")), None)
+        for n, line in prose:
+            if FAIRVERDICT_URL in line and (callout is None or n < callout):
+                report("WARN", n, "move the FairVerdict link to the end of the method line: a post that opens "
+                                  "with a link to its maker's site reads as promotion")
 
     for n, line in prose:
         for match in PLACEHOLDER.finditer(line):

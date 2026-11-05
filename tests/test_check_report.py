@@ -13,7 +13,7 @@ CHECKER = ROOT / "skills/fairverdict/scripts/check_report.py"
 
 GOOD_SHORT = """# Alpha beats Beta for small teams: 87 vs 60
 
-*04 Nov 2026 · AI analysis by Example Model with [FairVerdict](https://msrv.dev/fairverdict/)*
+*04 Nov 2026 · AI analysis by Example Model*
 
 **TL;DR:** Alpha wins on correctness.
 
@@ -29,6 +29,8 @@ GOOD_SHORT = """# Alpha beats Beta for small teams: 87 vs 60
 | 2 | Beta | 60 | Quick experiments → more bugs |
 
 **What would change it:** nothing in the tested weightings.
+
+**How it was judged:** 2 options · scored with [FairVerdict](https://msrv.dev/fairverdict/).
 
 [Proof: public share link not yet provided]
 """
@@ -114,6 +116,20 @@ class CheckReportTests(unittest.TestCase):
         self.assertIn("decorative emoji 🚀", result.stdout)
         self.assertIn("5 columns", result.stdout)
         self.assertNotIn("decorative emoji 🥇", result.stdout)
+
+    def test_link_at_the_top_of_a_post_warns(self):
+        text = GOOD_SHORT.replace("AI analysis by Example Model*",
+                                  "AI analysis by Example Model with [FairVerdict](https://msrv.dev/fairverdict/)*")
+        result = run(text, "--type", "short")
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertIn("move the FairVerdict link", result.stdout)
+        self.assertNotIn("move the FairVerdict link", run(text, "--type", "full").stdout)
+
+    def test_missing_fairverdict_link_fails(self):
+        text = GOOD_SHORT.replace(" · scored with [FairVerdict](https://msrv.dev/fairverdict/)", "")
+        result = run(text, "--type", "short")
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("must link FairVerdict", result.stdout)
 
     def test_wrong_score_and_missing_section_warn(self):
         result = run(GOOD_SHORT.replace("**87 / 100**", "**88 / 100**").replace("**87**", "**88**")
