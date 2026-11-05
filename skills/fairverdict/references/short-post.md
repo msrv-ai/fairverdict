@@ -24,7 +24,7 @@ Write it in the user's language. Plain, specific, a little dry: the numbers do t
   - head-to-head: "<A> vs <B> for <job>: <winner> wins <score> to <score>"
   - switch: "Should you switch from <A> to <B>? <Switch | Stay> — <score> vs <score>"
   - too close to call: "<A> vs <B> for <job>: too close to call, <score> to <score> (<N> options scored)"
-- **Byline** — one italic line: date, the model actually running the analysis, the FairVerdict link.
+- **Byline** — one italic line: the date and the model actually running the analysis. No link here: on Reddit a post that opens with a link to its maker's site reads as promotion, so the FairVerdict link ends the method line instead.
 - **Opening** — one or two sentences that establish credibility, the way strong posts open with how long the author ran the tools:
   - how many options were compared, on how many criteria, fixed before any research;
   - how many key facts were checked;
@@ -36,11 +36,12 @@ Write it in the user's language. Plain, specific, a little dry: the numbers do t
 - **The ranking** — one table, four columns at most so it reads on a phone: rank, option, score, payoff → trade-off. Bold the winner's row; leave the other rows plain. Give every payoff and trade-off a concrete number or fact where the research has one. `*` marks thin evidence, explained in one line under the table. Disqualified candidates go under the table with ⛔ and the must-have they failed.
 - **Why it wins** — two or three bullets, one per gap driver, each with its evidence and its weighted points.
 - **Who should pick what** — the default pick, then the computed alternatives as "<candidate> if <priority> matters most", then the robustness result: the simulation share, or that no tested weighting changes #1. Never invent a flip.
-- **How it was judged** — the method, after the results, in at most three lines:
+- **How it was judged** — the method, after the results, in one compact paragraph:
   - who chose the candidates, and the notable options left out;
   - the criteria with their weights;
   - that the rubric was fixed before research;
-  - the fact-check counts.
+  - the fact-check counts as the verifiers returned them, and any fact settled afterwards;
+  - and, last, the FairVerdict link.
 - **Discussion question** — only when the user is posting for an audience: one specific question that asks for experience the analysis couldn't measure ("Shipped one of these to production? Where did it hurt?"). Never "Thoughts?".
 - **Edit line** — when a follow-up revises the post, add "**Edit:** <what changed and why>" right under the byline, so readers see what moved.
 - **Footer** — the proof placeholder is the last line.
@@ -60,7 +61,7 @@ Write it in the user's language. Plain, specific, a little dry: the numbers do t
 ```markdown
 # <Headline>
 
-*<date> · AI analysis by <actual model> with [FairVerdict](https://msrv.dev/fairverdict/)*
+*<date> · AI analysis by <actual model>*
 
 <Opening: <N> <unit> scored on <K> criteria fixed before any research, <M> key facts checked; "best" here means <goal, main assumption>.>
 
@@ -102,7 +103,7 @@ Write it in the user's language. Plain, specific, a little dry: the numbers do t
 
 ---
 
-**How it was judged:** <N> <unit> <named by you | chosen by <signals>><; left out: <option> (<reason>)> · <criterion> <w>% · <criterion> <w>% · … · rubric fixed before research · <n> facts checked<, independently>: **<n> confirmed · <n> contradicted · <n> not found**<; corrections>.
+**How it was judged:** <N> <unit> <named by you | chosen by <signals>><; left out: <option> (<reason>)> · <criterion> <w>% · <criterion> <w>% · … · rubric fixed before research · <n> facts checked<, independently>: **<n> confirmed · <n> contradicted · <n> not found**<, <n> not checked><; settled afterwards: <fact>><; corrections: <what changed and why>, <#1> <total before> → <total after>> · scored with [FairVerdict](https://msrv.dev/fairverdict/).
 
 <Only when posting for an audience: **<Discussion question>**>
 

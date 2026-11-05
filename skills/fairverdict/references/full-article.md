@@ -45,8 +45,8 @@ About **2,000–3,000 words for five candidates, tables included**, less for few
   - the simulation share;
   - which tested weightings change the winner, or that none did;
   - places whose order is uncertain;
-  - the fact-check counts: confirmed, contradicted, not found;
-  - any score the fact-check or the bias audit changed.
+  - the fact-check counts as the verifiers returned them — confirmed, contradicted, not found, and not checked if any — and any fact the analysis settled itself afterwards;
+  - any score the fact-check or the bias audit changed, and any change made after the totals were visible, with the totals before and after.
 
   "Not found" doesn't mean "disproved".
 - **FAQ** — three to six questions a reader is likely to ask next, each as an H3 and answered in one to three sentences from the research: is it still maintained, what does it cost, how hard is migrating, does it support <platform>, which one is easiest to learn. Leave out a question the evidence can't answer.
@@ -164,7 +164,7 @@ Emoji stay out of the article body, as in editorial roundups: the 🥇 in the ca
 
 <Simulation share for the winner and the runner-up; which tested weightings change #1, or none; uncertain places.>
 
-**Fact-check:** <N> facts checked <independently | by the analysis itself> · **<n> confirmed · <n> contradicted · <n> not found** · <corrections made>.
+**Fact-check:** <N> facts checked <independently | by the analysis itself> · **<n> confirmed · <n> contradicted · <n> not found**<, <n> not checked><; settled afterwards by the analysis: <facts>> · <corrections made>.
 
 ## FAQ
 
